@@ -7,17 +7,17 @@ var synthDelay = audioCtx.createDelay();
 var kickDelay = audioCtx.createDelay();
 var snareDelay = audioCtx.createDelay();
 
-var synthSource = audioCtx.createBufferSource();
-var kickSource = audioCtx.createBufferSource();
-var snareSource = audioCtx.createBufferSource();
+// var synthSource = audioCtx.createBufferSource();
+// var kickSource = audioCtx.createBufferSource();
+// var snareSource = audioCtx.createBufferSource();
 
-synthSource.connect(synthDelay);
-kickSource.connect(kickDelay);
-snareSource.connect(snareDelay);
+// synthSource.connect(synthDelay);
+// kickSource.connect(kickDelay);
+// snareSource.connect(snareDelay);
 
-synthDelay.connect(audioCtx.destination);
-kickDelay.connect(audioCtx.destination);
-snareDelay.connect(audioCtx.destination);
+// synthDelay.connect(audioCtx.destination);
+// kickDelay.connect(audioCtx.destination);
+// snareDelay.connect(audioCtx.destination);
 
 // get references to controls
 
@@ -33,11 +33,13 @@ var playSnare = document.querySelector('.play-snare');
 var stopSnare = document.querySelector('.stop-snare');
 var rangeSnare = document.querySelector('.stop-snare + input');
 
+var buffers = [];
+
 // use XHR to load audio tracks, and
 // decodeAudioData to decode them and stick them in buffers.
 // Then we put the buffers into their sources
 
-function getData(track,source) {
+function getData(track) {
   request = new XMLHttpRequest();
   request.open('GET', track + '.ogg', true);
   request.responseType = 'arraybuffer';
@@ -48,8 +50,7 @@ function getData(track,source) {
 
     audioCtx.decodeAudioData(audioData, function(buffer) {
         myBuffer = buffer;
-        source.buffer = myBuffer;
-        source.loop = true;
+        buffers.push(myBuffer);
       },
 
       function(e){"Error with decoding audio data" + e.err});
@@ -61,9 +62,9 @@ function getData(track,source) {
 
 // get the three data samples
 
-getData("synth",synthSource);
-//getData("kick",kickSource);
-//getData("snare",snareSource);
+getData('synth');
+getData('kick');
+getData('snare');
 
 // wire up buttons to stop and play audio
 
