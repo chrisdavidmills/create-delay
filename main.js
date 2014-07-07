@@ -3,15 +3,11 @@
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioCtx = new AudioContext();
 
-var synthDelay = audioCtx.createDelay();
-var kickDelay = audioCtx.createDelay();
-var snareDelay = audioCtx.createDelay();
+var synthDelay = audioCtx.createDelay(5.0);
+var kickDelay = audioCtx.createDelay(5.0);
+var snareDelay = audioCtx.createDelay(5.0);
 
 var destination = audioCtx.destination;
-
-// synthSource.connect(synthDelay);
-// kickSource.connect(kickDelay);
-// snareSource.connect(snareDelay);
 
 // get references to controls
 
@@ -123,17 +119,23 @@ stopSnare.onclick = function() {
 // Control the amount of delay each audio
 // track has before it plays each time
 
+var delay1;
+
 rangeSynth.oninput = function() {
-  var delay = rangeSynth.value;
-  synthDelay.delayTime.value = delay;
+  delay1 = rangeSynth.value;
+  synthDelay.delayTime.value = delay1;
 }
+
+var delay2;
 
 rangeKick.oninput = function() {
-  var delay = rangeKick.value;
-  kickDelay.delayTime.value = delay;
+  var delay2 = rangeKick.value;
+  kickDelay.delayTime.value = delay2;
 }
 
+var delay3;
+
 rangeSnare.oninput = function() {
-  var delay = rangeSnare.value;
-  snareDelay.delayTime.value = delay;
+  var delay3 = rangeSnare.value;
+  snareDelay.delayTime.value = delay3;
 }
